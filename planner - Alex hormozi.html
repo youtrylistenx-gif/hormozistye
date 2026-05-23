@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planner 2026 — วางแผนชีวิตให้ได้จริง. | มึงลองฟัง</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans Thai', sans-serif;
+      background: #111111;
+      color: #FFFFFF;
+      line-height: 1.5;
+      font-size: 16px;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .accent { color: #F5C518; }
+
+    /* ─── STICKY BAR ─── */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #F5C518;
+      padding: 12px 20px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      box-shadow: 0 -2px 16px rgba(0,0,0,0.4);
+    }
+    .sticky-bar span {
+      color: #111;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+    .sticky-bar .btn-sticky {
+      background: #111;
+      color: #F5C518;
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ─── NAV ─── */
+    .nav {
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #222;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo img { height: 34px; width: 34px; object-fit: contain; border-radius: 4px; }
+    .nav-logo span { font-weight: 700; font-size: 0.9rem; }
+    .nav-price { font-size: 1.15rem; font-weight: 900; color: #F5C518; }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 52px 20px 44px;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #F5C518;
+      color: #111;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 5px 14px;
+      border-radius: 2px;
+      margin-bottom: 22px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 9vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.12;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: #bbb;
+      margin-bottom: 34px;
+      line-height: 1.65;
+    }
+    .btn-hero {
+      display: block;
+      background: #F5C518;
+      color: #111111;
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 900;
+      padding: 20px 32px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      transition: opacity 0.15s;
+    }
+    .btn-hero:hover { opacity: 0.88; }
+    .hero-sub { margin-top: 14px; font-size: 0.82rem; color: #555; }
+
+    /* ─── PROOF BAR ─── */
+    .proof-bar {
+      background: #161616;
+      padding: 30px 20px;
+      border-top: 2px solid #F5C518;
+      border-bottom: 2px solid #F5C518;
+    }
+    .proof-grid {
+      max-width: 680px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+    .proof-num {
+      font-size: clamp(1.6rem, 6vw, 2.4rem);
+      font-weight: 900;
+      color: #F5C518;
+      line-height: 1;
+    }
+    .proof-label {
+      font-size: 0.78rem;
+      color: #777;
+      margin-top: 5px;
+      line-height: 1.35;
+    }
+
+    /* ─── SHARED SECTION WRAPPER ─── */
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    .section-divider { border-bottom: 1px solid #1e1e1e; }
+    .section-dark { background: #0d0d0d; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #F5C518;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.7rem, 6.5vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.18;
+      margin-bottom: 32px;
+    }
+
+    /* ─── PROBLEM ─── */
+    .problem-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .problem-item {
+      display: flex;
+      gap: 16px;
+      padding: 20px 18px;
+      background: #1a1a1a;
+      border-left: 3px solid #F5C518;
+      border-radius: 0 6px 6px 0;
+      align-items: flex-start;
+    }
+    .problem-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .problem-text { font-size: 0.98rem; line-height: 1.55; color: #ccc; }
+    .problem-text strong { color: #fff; }
+
+    /* ─── VALUE ANCHOR ─── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 24px;
+    }
+    .compare-table th {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #666;
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid #2a2a2a;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .compare-table td {
+      padding: 14px 12px;
+      font-size: 0.92rem;
+      border-bottom: 1px solid #1a1a1a;
+      vertical-align: top;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .col-what { color: #ccc; }
+    .compare-table .col-price { color: #888; font-size: 0.88rem; white-space: nowrap; font-weight: 600; }
+    .compare-table .col-note { color: #4a4a4a; font-size: 0.8rem; }
+    .anchor-box {
+      background: #161616;
+      border: 2px solid #F5C518;
+      border-radius: 8px;
+      padding: 22px 20px;
+      text-align: center;
+    }
+    .anchor-box .vs { font-size: 0.82rem; color: #777; margin-bottom: 10px; }
+    .anchor-box .big-price {
+      font-size: clamp(2.6rem, 10vw, 4rem);
+      font-weight: 900;
+      color: #F5C518;
+      line-height: 1;
+    }
+    .anchor-box .big-desc { font-size: 0.88rem; color: #888; margin-top: 10px; }
+
+    /* ─── OFFER STACK ─── */
+    .offer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .offer-card {
+      background: #1a1a1a;
+      border: 1px solid #252525;
+      border-radius: 8px;
+      padding: 20px 16px;
+    }
+    .offer-card.bonus {
+      border-color: #F5C518;
+      grid-column: span 2;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .offer-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .offer-icon-lg { font-size: 2rem; flex-shrink: 0; margin-top: 2px; }
+    .offer-name { font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; }
+    .offer-desc { font-size: 0.83rem; color: #777; line-height: 1.5; }
+    .bonus-tag {
+      display: inline-block;
+      background: #F5C518;
+      color: #111;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-bottom: 6px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .extra-item {
+      background: #1a1a1a;
+      border-radius: 8px;
+      padding: 16px 18px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .extra-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .extra-name { font-size: 0.92rem; font-weight: 700; }
+    .extra-desc { font-size: 0.83rem; color: #777; margin-top: 3px; }
+
+    /* ─── PRODUCT PREVIEW ─── */
+    .preview-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 24px -20px 0;
+      padding: 0 20px;
+      scrollbar-width: none;
+    }
+    .preview-scroll::-webkit-scrollbar { display: none; }
+    .preview-track {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      padding-bottom: 4px;
+    }
+    .preview-track img {
+      width: 280px;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #252525;
+      flex-shrink: 0;
+    }
+    .scroll-hint { margin-top: 12px; font-size: 0.78rem; color: #444; text-align: center; }
+
+    /* ─── HOW IT WORKS ─── */
+    .steps { display: flex; flex-direction: column; }
+    .step {
+      display: flex;
+      gap: 20px;
+      padding: 26px 0;
+      border-bottom: 1px solid #1a1a1a;
+      align-items: flex-start;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #F5C518;
+      color: #111;
+      font-weight: 900;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-title { font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+    .step-desc { font-size: 0.88rem; color: #777; line-height: 1.55; }
+
+    /* ─── TESTIMONIALS ─── */
+    .review-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 24px -20px 0;
+      padding: 0 20px;
+      scrollbar-width: none;
+    }
+    .review-scroll::-webkit-scrollbar { display: none; }
+    .review-track {
+      display: flex;
+      gap: 10px;
+      width: max-content;
+      padding-bottom: 4px;
+    }
+    .review-track img {
+      width: 200px;
+      border-radius: 8px;
+      border: 1px solid #252525;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-list { margin-top: 8px; }
+    .faq-item { border-bottom: 1px solid #222; }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #fff;
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: left;
+      padding: 20px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      line-height: 1.45;
+    }
+    .faq-arrow {
+      color: #F5C518;
+      font-size: 0.8rem;
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .faq-q.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      font-size: 0.9rem;
+      color: #888;
+      line-height: 1.65;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding-bottom 0.2s;
+      padding-bottom: 0;
+    }
+    .faq-a.open { max-height: 400px; padding-bottom: 20px; }
+
+    /* ─── FINAL CTA ─── */
+    .cta-list {
+      list-style: none;
+      background: #1a1a1a;
+      border-radius: 8px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      margin: 24px 0 32px;
+      text-align: left;
+    }
+    .cta-list li { display: flex; gap: 12px; font-size: 0.93rem; color: #ccc; }
+    .cta-list li .ck { color: #F5C518; font-weight: 900; flex-shrink: 0; }
+    .big-cta-price {
+      font-size: clamp(3.2rem, 13vw, 5.5rem);
+      font-weight: 900;
+      color: #F5C518;
+      line-height: 1;
+      text-align: center;
+    }
+    .big-cta-label { text-align: center; font-size: 0.88rem; color: #666; margin-top: 6px; margin-bottom: 28px; }
+    .btn-cta {
+      display: block;
+      background: #F5C518;
+      color: #111111;
+      font-family: 'Noto Sans Thai', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      padding: 22px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      transition: opacity 0.15s;
+      margin-bottom: 18px;
+    }
+    .btn-cta:hover { opacity: 0.88; }
+    .payment-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pay-badge {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      color: #888;
+    }
+    .risk-note {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.82rem;
+      color: #444;
+      line-height: 1.7;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid #1e1e1e;
+      padding: 22px 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #3a3a3a;
+    }
+    footer a { color: #3a3a3a; }
+    footer a:hover { color: #666; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 400px) {
+      .offer-grid { grid-template-columns: 1fr; }
+      .offer-card.bonus { grid-column: span 1; }
+      .sticky-bar span { display: none; }
+    }
+    @media (max-width: 360px) {
+      .proof-num { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar">
+  <span>Google Sheet Planner 2026 ภาษาไทย</span>
+  <a href="checkout.html" class="btn-sticky">สั่งซื้อเลย ฿390 →</a>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <img src="./ภาพ/โลโก้หมากรุก ไม่มีพื้นหลัง.png" alt="มึงลองฟัง" />
+    <span>มึงลองฟัง.❤️‍🔥</span>
+  </div>
+  <span class="nav-price">฿390</span>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     SECTION 1 — HERO
+═══════════════════════════════════════ -->
+<section class="section-divider">
+  <div class="hero">
+    <span class="hero-badge">Google Sheet Planner 2026 · ภาษาไทย</span>
+    <h1>วางแผนชีวิต<br/><span class="accent">ให้ได้จริง</span><br/>ไม่ใช่แค่เขียนแล้วลืม</h1>
+    <p>ระบบติดตามเป้าหมาย วินัย และการเงิน<br/>ใน Google Sheet เดียว — ใช้ได้เลยทันที</p>
+    <a href="checkout.html" class="btn-hero">รับชีทเลย — 390 บาท →</a>
+    <p class="hero-sub">ได้ไฟล์ทันทีหลังชำระ · ไม่ต้องลงแอป · ใช้ฟรีบน Google Sheets</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SECTION 2 — SOCIAL PROOF BAR
+═══════════════════════════════════════ -->
+<div class="proof-bar">
+  <div class="proof-grid">
+    <div>
+      <div class="proof-num">700+</div>
+      <div class="proof-label">คนใช้แล้ว</div>
+    </div>
+    <div>
+      <div class="proof-num">⭐ 5.0</div>
+      <div class="proof-label">เรตติ้งเฉลี่ย<br/>จากรีวิวจริง</div>
+    </div>
+    <div>
+      <div class="proof-num">ตลอดชีพ</div>
+      <div class="proof-label">อัปเดตฟรี<br/>ไม่มีค่าเพิ่ม</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 3 — PROBLEM
+═══════════════════════════════════════ -->
+<div class="section-divider">
+  <div class="wrap">
+    <div class="section-label">ปัญหาที่เจอกันบ่อย</div>
+    <h2 class="section-title">เคยเป็น<span class="accent">แบบนี้</span>ไหม?</h2>
+    <ul class="problem-list">
+      <li class="problem-item">
+        <span class="problem-icon">😔</span>
+        <span class="problem-text"><strong>ตั้งเป้าทุกต้นปี</strong> แต่พอถึงกุมภาฯ ก็หายไปเองโดยไม่รู้ตัว</span>
+      </li>
+      <li class="problem-item">
+        <span class="problem-icon">😵</span>
+        <span class="problem-text"><strong>ทำงานยุ่งทั้งวัน</strong> แต่พอสิ้นวันถามตัวเองว่าวันนี้ได้อะไร... ตอบไม่ออก</span>
+      </li>
+      <li class="problem-item">
+        <span class="problem-icon">🔄</span>
+        <span class="problem-text"><strong>อยากสร้างวินัย</strong> ลองมาหลายรอบแล้ว ทำได้แค่ 3 วันก็เลิก ทุกครั้ง</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 4 — VALUE ANCHORING
+═══════════════════════════════════════ -->
+<div class="section-divider section-dark">
+  <div class="wrap">
+    <div class="section-label">เทียบกับตลาด</div>
+    <h2 class="section-title">ถ้าจะได้สิ่งเดียวกัน<span class="accent">จากที่อื่น</span></h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>สิ่งที่ได้</th>
+          <th>ราคา</th>
+          <th>ข้อจำกัด</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-what">Notion / Template ต่างประเทศ</td>
+          <td class="col-price">700–1,500 บาท</td>
+          <td class="col-note">ภาษาอังกฤษ ไม่มีคนช่วย ไม่มีอัปเดต</td>
+        </tr>
+        <tr>
+          <td class="col-what">คอร์สสอนวางแผนชีวิตออนไลน์</td>
+          <td class="col-price">490–1,900 บาท</td>
+          <td class="col-note">ดูแล้วจบ ไม่มีเครื่องมือติดมือ</td>
+        </tr>
+        <tr>
+          <td class="col-what">ปรึกษา Productivity Coach 1 ครั้ง</td>
+          <td class="col-price">500–2,000 บาท</td>
+          <td class="col-note">แค่ครั้งเดียว ต้องจ่ายใหม่ทุกรอบ</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="anchor-box">
+      <div class="vs">ชีทนี้ — ได้ทั้งสามอย่างรวมกัน + อัปเดตตลอดชีพ</div>
+      <div class="big-price">฿390</div>
+      <div class="big-desc">ราคาเดียว ไม่มีซ่อน ไม่มีค่าต่ออายุ</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 5 — OFFER STACK
+═══════════════════════════════════════ -->
+<div class="section-divider">
+  <div class="wrap">
+    <div class="section-label">สิ่งที่ได้รับทั้งหมด</div>
+    <h2 class="section-title">ครบทุกอย่าง<span class="accent">ใน Sheet เดียว</span></h2>
+    <div class="offer-grid">
+      <div class="offer-card">
+        <div class="offer-icon">📊</div>
+        <div class="offer-name">แดชบอร์ดสรุปรายปี</div>
+        <div class="offer-desc">ภาพรวมเป้าหมายทั้งปีดูได้ในหน้าเดียว รู้ทันทีว่าตัวเองอยู่ที่ไหน</div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-icon">📅</div>
+        <div class="offer-name">แผนรายเดือน M1–M12</div>
+        <div class="offer-desc">To-do list รายวันครบทั้ง 12 เดือน พร้อม % ความสำเร็จอัตโนมัติ</div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-icon">🔥</div>
+        <div class="offer-name">Habit Tracker</div>
+        <div class="offer-desc">ติดตามวินัยรายวันตลอดเดือน เห็นชัดว่าวันไหนทำได้ วันไหนพลาด</div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-icon">🎯</div>
+        <div class="offer-name">Goal Tracker</div>
+        <div class="offer-desc">แยกหมวดชัดเจน งาน / ความสัมพันธ์ / ส่วนตัว ติดตามได้จริง</div>
+      </div>
+      <div class="offer-card bonus">
+        <div class="offer-icon-lg">💰</div>
+        <div>
+          <div class="bonus-tag">โบนัส</div>
+          <div class="offer-name">Money Tracker</div>
+          <div class="offer-desc">บันทึกรายรับ รายจ่าย การออม และการลงทุน ครบในที่เดียว ไม่ต้องซื้อแอปเพิ่ม</div>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div class="extra-item">
+        <span class="extra-icon">🎥</span>
+        <div>
+          <div class="extra-name">วิดีโอสอนใช้งาน 6 นาที</div>
+          <div class="extra-desc">ดูครั้งเดียวก็เริ่มใช้ได้เลย ไม่ต้องเดาเอง</div>
+        </div>
+      </div>
+      <div class="extra-item">
+        <span class="extra-icon">♾️</span>
+        <div>
+          <div class="extra-name">อัปเดตฟีเจอร์ตลอดชีพ</div>
+          <div class="extra-desc">ซื้อครั้งเดียว ได้รับทุกการอัปเดตในอนาคตฟรี</div>
+        </div>
+      </div>
+      <div class="extra-item">
+        <span class="extra-icon">💬</span>
+        <div>
+          <div class="extra-name">ปรึกษาได้เสมอ</div>
+          <div class="extra-desc">ถ้าใช้แล้วไม่ได้ผล ส่ง DM มาได้เลย จะช่วยหาทางออกให้</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 6 — PRODUCT PREVIEW
+═══════════════════════════════════════ -->
+<div class="section-divider section-dark">
+  <div class="wrap" style="padding-bottom: 40px;">
+    <div class="section-label">ตัวอย่างชีทจริง</div>
+    <h2 class="section-title">ดูก่อนได้เลย<span class="accent"> — ไม่ซ่อนอะไร</span></h2>
+  </div>
+  <div class="preview-scroll" style="padding: 0 20px; margin: 0 0 0;">
+    <div class="preview-track">
+      <img src="./ภาพ/AP Slide 1.png" alt="Annual Planner Dashboard" />
+      <img src="./ภาพ/P Slide 2.png" alt="Monthly Planner" />
+      <img src="./ภาพ/H Slide 3.png" alt="Habit Tracker" />
+      <img src="./ภาพ/M Slide 4.png" alt="Money Tracker" />
+      <img src="./ภาพ/Y Slide5.png" alt="Yearly Summary" />
+      <img src="./ภาพ/V Slide 6.png" alt="Vision Board" />
+      <img src="./ภาพ/U Slide 7.png" alt="Usage" />
+      <img src="./ภาพ/C Slide 8.png" alt="Calendar" />
+    </div>
+  </div>
+  <p class="scroll-hint" style="padding: 12px 20px 40px;">← เลื่อนซ้ายขวาเพื่อดู</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 7 — HOW IT WORKS
+═══════════════════════════════════════ -->
+<div class="section-divider">
+  <div class="wrap">
+    <div class="section-label">วิธีรับของ</div>
+    <h2 class="section-title">3 ขั้นตอน<span class="accent"> เริ่มได้วันนี้เลย</span></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">ชำระเงิน 390 บาท</div>
+          <div class="step-desc">พร้อมเพย์ · โอนธนาคาร · บัตรเครดิต<br/>ใช้เวลาไม่ถึง 2 นาที</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">รับไฟล์ทันทีทาง DM หรืออีเมล</div>
+          <div class="step-desc">ไม่ต้องรอ ไม่ต้องส่งของ ได้ลิ้งค์ทันทีหลังยืนยันการชำระ</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Copy ไป Google Drive แล้วใช้ได้เลย</div>
+          <div class="step-desc">ดูวิดีโอสอน 6 นาที แล้วเริ่มกรอกข้อมูลได้ทันที<br/>ทำบนมือถือหรือคอมก็ได้</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 8 — TESTIMONIALS
+═══════════════════════════════════════ -->
+<div class="section-divider section-dark">
+  <div class="wrap" style="padding-bottom: 20px;">
+    <div class="section-label">รีวิวจากคนที่ใช้จริง</div>
+    <h2 class="section-title">700+ คน<span class="accent">บอกว่าอะไร</span></h2>
+  </div>
+  <div class="review-scroll" style="padding: 0 20px;">
+    <div class="review-track">
+      <img src="./ภาพ/รีวิว 2.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 3.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 4.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 5.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 6.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 7.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 10.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 11.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 13.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 14.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 16.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 19.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 22.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 23.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 32.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 34.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 35.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 37.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 39.jpg" alt="รีวิว" />
+      <img src="./ภาพ/รีวิว 40.jpg" alt="รีวิว" />
+    </div>
+  </div>
+  <p class="scroll-hint" style="padding: 12px 20px 40px;">← เลื่อนซ้ายขวาเพื่อดูรีวิวเพิ่มเติม</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 9 — FAQ
+═══════════════════════════════════════ -->
+<div class="section-divider">
+  <div class="wrap">
+    <div class="section-label">คำถามที่ถามบ่อย</div>
+    <h2 class="section-title">มีข้อสงสัย<span class="accent">?</span></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          ต้องมีทักษะอะไรพิเศษไหม?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">ไม่ต้องเลย ใช้ Google Sheets ฟรีบนมือถือหรือคอมได้เลย ถ้าเคยเปิด Excel มาก่อนก็ใช้ได้ทันที มีวิดีโอสอน 6 นาทีแนบมาด้วย</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          ซื้อแล้วได้อะไรบ้าง?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">ได้ลิ้งค์ Google Sheet ที่ copy ไป Drive ตัวเองได้เลย + วิดีโอสอนใช้งาน 6 นาที + สามารถปรึกษาได้เสมอถ้าใช้แล้วไม่ได้ผล และได้รับอัปเดตฟีเจอร์ใหม่ตลอดชีพโดยไม่เสียเพิ่ม</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          อัปเดตในอนาคตต้องจ่ายเพิ่มไหม?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">ไม่ต้องจ่ายเพิ่มเลย ซื้อครั้งเดียวได้ใช้ตลอดชีพ ทุกครั้งที่มีการอัปเดตหรือเพิ่มฟีเจอร์ใหม่จะแจ้งให้ทราบและส่งไฟล์ใหม่ให้ฟรี</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          จ่ายผ่านช่องทางอะไรได้บ้าง?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">รับชำระผ่าน พร้อมเพย์ · โอนธนาคาร · บัตรเครดิต/เดบิต — ครบทุกช่องทางที่คนไทยใช้</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          ถ้าใช้แล้วไม่ได้ผลทำยังไง?
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">ปรึกษาได้เสมอ ส่ง DM มาบอกว่าติดปัญหาอะไร จะช่วยหาทางออกให้ ไม่ได้ซื้อแล้วทิ้ง</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SECTION 10 — FINAL CTA
+═══════════════════════════════════════ -->
+<section>
+  <div class="wrap" style="padding-bottom: 100px; text-align: center;">
+    <div class="section-label">พร้อมแล้ว?</div>
+    <h2 class="section-title">สรุปสิ่งที่ได้<span class="accent">ทั้งหมด</span></h2>
+    <ul class="cta-list">
+      <li><span class="ck">✓</span> แดชบอร์ดสรุปรายปี — ภาพรวมเป้าหมายทั้งปี</li>
+      <li><span class="ck">✓</span> แผนรายเดือน M1–M12 พร้อม % ความสำเร็จอัตโนมัติ</li>
+      <li><span class="ck">✓</span> Habit Tracker — ติดตามวินัยรายวันตลอดเดือน</li>
+      <li><span class="ck">✓</span> Goal Tracker — แยกหมวด งาน / ความสัมพันธ์ / ส่วนตัว</li>
+      <li><span class="ck">✓</span> Money Tracker — รายรับ รายจ่าย ออม / ลงทุน (โบนัส)</li>
+      <li><span class="ck">✓</span> วิดีโอสอนใช้งาน 6 นาที เริ่มได้ทันที</li>
+      <li><span class="ck">✓</span> อัปเดตฟีเจอร์ตลอดชีพ ฟรี ไม่มีค่าเพิ่ม</li>
+      <li><span class="ck">✓</span> ปรึกษาได้เสมอถ้าใช้แล้วไม่ได้ผล</li>
+    </ul>
+    <div class="big-cta-price">฿390</div>
+    <div class="big-cta-label">ราคาเดียว ถาวร · ได้ไฟล์ทันทีหลังชำระ</div>
+    <a href="checkout.html" class="btn-cta">สั่งซื้อเลย — 390 บาท →</a>
+    <div class="payment-row">
+      <span class="pay-badge">📱 พร้อมเพย์</span>
+      <span class="pay-badge">🏦 โอนธนาคาร</span>
+      <span class="pay-badge">💳 บัตรเครดิต</span>
+    </div>
+    <p class="risk-note">ปรึกษาได้เสมอถ้าใช้แล้วไม่ได้ผล<br/>ไม่มีราคาหลอก ไม่มี urgency ปลอม — ราคาเดียวตลอด 390 บาท</p>
+  </div>
+</section>
+
+<footer>
+  มึงลองฟัง.❤️‍🔥 &nbsp;·&nbsp; <a href="index.html">กลับหน้าแรก</a>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var answer = btn.nextElementSibling;
+      var isOpen = btn.classList.contains('open');
+
+      document.querySelectorAll('.faq-q').forEach(function(b) {
+        b.classList.remove('open');
+        b.nextElementSibling.classList.remove('open');
+      });
+
+      if (!isOpen) {
+        btn.classList.add('open');
+        answer.classList.add('open');
+      }
+    });
+  });
+</script>
+</body>
+</html>
